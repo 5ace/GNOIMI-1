@@ -1,6 +1,9 @@
-#include "kmean.h"
 #include <algorithm>
+#include <cstring>
 #include <mkl.h>
+#include <assert.h>
+
+#include "kmean.h"
 
 t_vv<float> normalize_features(const t_vv<float>& vv_features) {
 

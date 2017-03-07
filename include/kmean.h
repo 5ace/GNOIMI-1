@@ -1,8 +1,7 @@
 #ifndef NOVUGNO_IMI_INCLUDE_KMEAN_H_
 #define NOVUGNO_IMI_INCLUDE_KMEAN_H_
 
-#include <stdio.h>
-
+/*#include <stdio.h>*/
 #include "common_type.h"
 
 #ifdef __cplusplus
