@@ -8,7 +8,6 @@
 #include <string>
 #include <thread>
 #include <functional>
-#include <vector>
 #include <ctime>
 #include <chrono>
 #include <mutex>
@@ -16,6 +15,8 @@
 
 #include <cblas.h>
 #include <boost/algorithm/string.hpp>
+
+#include "file_utility.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -95,41 +96,6 @@ mutex mtx;
 
 ///////////////////////////
 
-inline void load_ID_fromFile(const string& f_list, vector<int>& v_ID) {
-
-    ifstream in_f(f_list.c_str());
-    assert(in_f.is_open()); 
-    v_ID.clear();
-
-    while(in_f.good()) {
-	string cur_line;
-	getline(in_f, cur_line);
-	boost::algorithm::trim(cur_line);
-	if(in_f.eof()) break;
-
-	v_ID.push_back(stoi(cur_line));
-    }
-    in_f.close();
-}
-
-template<typename T>
-inline vector<T> load_feature(const string& f_name) {
-    ifstream in_f(f_name.c_str());
-    assert(in_f.is_open()); 
-
-    vector<T> v_res;
-    while(in_f.good()) {
-	string cur_line;
-	getline(in_f, cur_line);
-	boost::algorithm::trim(cur_line);
-	if(in_f.eof()) break;
-
-	v_res.push_back(stof(cur_line));
-    }
-    in_f.close();
-
-    return v_res;
-}
 
 vector<float> normalize_features(const vector<float>& v_feature) {
 

@@ -68,4 +68,22 @@ inline void load_feature_ID_fromFiles(const string& f_list, vector<IDType>& v_ID
 	}
 	in_f.close();
 }
+
+inline void load_ID_fromFile(const string& f_list, vector<int>& v_ID) {
+
+    ifstream in_f(f_list.c_str());
+    assert(in_f.is_open()); 
+    v_ID.clear();
+
+    while(in_f.good()) {
+	string cur_line;
+	getline(in_f, cur_line);
+	boost::algorithm::trim(cur_line);
+	if(in_f.eof()) break;
+
+	v_ID.push_back(stoi(cur_line));
+    }
+    in_f.close();
+}
+
 #endif
