@@ -3,6 +3,7 @@
 #include <ctime>
 #include <chrono>
 
+#include "common_type.h"
 #include "file_utility.h"
 #include "kmean.h"
 
