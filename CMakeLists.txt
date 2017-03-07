@@ -1,10 +1,10 @@
-project (NearestSearch CXX C)
-cmake_minimum_required(VERSION 2.6)
+project (NovuGNO-IMI)
+cmake_minimum_required(VERSION 3.0)
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -std=c++0x -m64")
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3 -std=c++0x -m64")
 
-set(CMAKE_MODULE_PATH ${NearestSearch_SOURCE_DIR}/cmake/Modules ${CMAKE_MODULE_PATH})
+set(CMAKE_MODULE_PATH ${NovuGNO-IMI_SOURCE_DIR}/cmake/Modules ${CMAKE_MODULE_PATH})
 message(info: ${CMAKE_MODULE_PATH})
 find_package(LAPACK)
 find_package(OpenBLAS REQUIRED)
