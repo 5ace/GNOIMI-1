@@ -9,13 +9,6 @@
 
 using namespace std;
 
-//struct t_K_mean_info {
-	//t_v<int> v_num_assign;
-	//t_v<int> v_pt_assigned_centroid_idx;
-	//t_v<float> v_pt_dis_to_assigned_centroid;
-	//t_vv<float> vv_centroid;
-//}
-
 int main(int argc, char** argv) {
 	if (argc != 6) {
 		std::cerr << "Usage: " << argv[0]
@@ -59,7 +52,6 @@ int main(int argc, char** argv) {
 	cout << "calculate displacement" << endl;
 	t_vv<float> vv_displacements = cal_displacement(vv_normalized_features, coarse_kmean_res.v_pt_assigned_centroid_idx, coarse_kmean_res.vv_centroid);
 
-
 	cout << "Estimate fine kmean" << endl;
 	std::chrono::steady_clock::time_point fine_begin = std::chrono::steady_clock::now(); 
 	
@@ -70,7 +62,7 @@ int main(int argc, char** argv) {
 	std::cout << "Fine Kmean time difference = " << std::chrono::duration_cast<std::chrono::microseconds>(fine_end - fine_begin).count() << std::endl;
 
 
-	//store the coarse centroids
+	//store the coarse centroids (i.e., S)
 	vector<float> flatten_centroid;
 	for (auto vvit = std::begin(coarse_kmean_res.vv_centroid); vvit != std::end(coarse_kmean_res.vv_centroid); ++vvit) {
 		for (auto vit = vvit->begin(); vit != vvit->end(); ++vit) {
@@ -80,7 +72,7 @@ int main(int argc, char** argv) {
 	float* vv_coarse_centroid_ptr = flatten_centroid.data();
 	fvecs_write(coarseFile_name.c_str(), D, K, vv_coarse_centroid_ptr);
 
-	//store the fine centroids
+	//store the fine centroids (i.e., T)
 	flatten_centroid.clear();
 	for (auto vvit = std::begin(fine_kmean_res.vv_centroid); vvit != std::end(fine_kmean_res.vv_centroid); ++vvit) {
 		for (auto vit = vvit->begin(); vit != vvit->end(); ++vit) {
@@ -90,7 +82,7 @@ int main(int argc, char** argv) {
 	float* vv_fine_centroid_ptr = flatten_centroid.data();
 	fvecs_write(fineFile_name.c_str(), D, K, vv_fine_centroid_ptr);
 
-	//change normalized feature to fvecs
+	//store normalized feature to fvecs
 	flatten_centroid.clear();
 	for (auto vvit = std::begin(vv_normalized_features); vvit != std::end(vv_normalized_features); ++vvit) {
 		for (auto vit = vvit->begin(); vit != vvit->end(); ++vit) {
@@ -100,9 +92,4 @@ int main(int argc, char** argv) {
 	float* vv_original_features_ptr = flatten_centroid.data();
 	string original_feature_file_name = normalized_f_name;
 	fvecs_write(original_feature_file_name.c_str(), D, vv_features.size(), vv_original_features_ptr);
-
-	//cout << kmean_res.v_pt_assigned_centroid_idx.size() << endl;
-	//for_each(kmean_res.v_pt_assigned_centroid_idx.begin(), kmean_res.v_pt_assigned_centroid_idx.end(), [](const int& i){cout << i << " ";});
-	//cout << endl;
-	
 }
