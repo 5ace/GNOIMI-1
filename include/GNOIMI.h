@@ -1,3 +1,6 @@
+#ifndef NOVUGNO_IMI_INCLUDE_GNOIMI_H_
+#define NOVUGNO_IMI_INCLUDE_GNOIMI_H_
+
 #include <algorithm>
 #include <cassert>
 #include <cmath>
@@ -15,24 +18,50 @@
 #include <mutex>
 #include <cblas.h>
 
-#ifdef __cplusplus
-extern "C"{
-#endif
+struct threadInfo;
 
-#include <yael/kmeans.h>
-#include <yael/vector.h>
-#include <yael/matrix.c>
+class GNOIMI {
+    public:
+    private:
+	int D;
+	int K;
+	int totalLearnCount;
+	int learnIterationsCount;
+	int L;
 
-int fvecs_read(const char *fname, int d, int n, float *v);
-//int ivecs_new_read(const char *fname, int *d_out, int **vi);
-void fmat_mul_full(const float *left, const float *right,
-	int m, int n, int k,
-	const char *transp,
-	float *result);
+	int threadsCount;
+	int totalPoints_perThread;
+	int Init_chunkSize;
 
-#ifdef __cplusplus
-}
-#endif
+	int* coarseAssigns;
+	int* fineAssigns;
+	float* alphaNum;
+	float* alphaDen;
+	float* alpha;
+
+	vector<float*> alphaNumerators;
+	vector<float*> alphaDenominators;
+
+	float* coarseVocab;
+	float* fineVocab;
+	float* fineVocabNum;
+	float* fineVocabDen;
+	float* coarseVocabNum;
+	float* coarseVocabDen;
+
+	vector<float*> fineVocabNumerators;
+	vector<float*> fineVocabDenominators;
+	vector<float*> coarseVocabNumerators;
+	vector<float*> coarseVocabDenominators;
+
+	float* coarseNorms;
+	float* fineNorms;
+	float* coarseFineProducts;
+
+	float* errors;
+
+	string output_prefix;
+};
 
 using namespace std;
 
@@ -485,3 +514,4 @@ int main() {
     free(errors);
     return 0;
 }
+#endif  //NOVUGNO_IMI_INCLUDE_GNOIMI_H_

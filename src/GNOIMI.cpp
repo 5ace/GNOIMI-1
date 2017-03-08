@@ -24,7 +24,6 @@ extern "C"{
 #include <yael/matrix.c>
 
 int fvecs_read(const char *fname, int d, int n, float *v);
-//int ivecs_new_read(const char *fname, int *d_out, int **vi);
 void fmat_mul_full(const float *left, const float *right,
 	int m, int n, int k,
 	const char *transp,

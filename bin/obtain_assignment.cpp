@@ -27,19 +27,10 @@ extern "C"{
 #include <yael/matrix.c>
 
 int fvecs_read(const char *fname, int d, int n, float *v);
-int ivecs_new_read(const char *fname, int *d_out, int **vi);
 void fmat_mul_full(const float *left, const float *right,
 	int m, int n, int k,
 	const char *transp,
 	float *result);
-int fvec_read(const char *fname, int d, float *a, int o_f);
-int* ivec_new_read(const char *fname, int *d_out);
-void fmat_rev_subtract_from_columns(int d,int n,float *m,const float *avg);
-void fvec_sub(float * v1, const float * v2, long n);
-int b2fvecs_read(const char *fname, int d, int n, float *v);
-void fvec_add(float * v1, const float * v2, long n);
-float* fmat_new_transp(const float *a, int ncol, int nrow);
-
 #ifdef __cplusplus
 }
 #endif
