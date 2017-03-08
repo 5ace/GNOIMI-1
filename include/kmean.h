@@ -1,7 +1,6 @@
 #ifndef NOVUGNO_IMI_INCLUDE_KMEAN_H_
 #define NOVUGNO_IMI_INCLUDE_KMEAN_H_
 
-/*#include <stdio.h>*/
 #include "common_type.h"
 
 #ifdef __cplusplus
@@ -34,7 +33,6 @@ struct t_K_mean_info {
 	t_v<float> v_pt_dis_to_assigned_centroid;   //!< the distance between a point and its assigned centorid
 	t_vv<float> vv_centroid;		    //!< all estimate K mean centroids
 };
-
 
 /* --------------------------------------------------------------------------*/
 /**
