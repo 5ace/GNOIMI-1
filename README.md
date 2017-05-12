@@ -1,4 +1,4 @@
-NovuGNO-IMI matching algorithm implementation
+GNO-IMI matching algorithm implementation
 =============================================
 
 This is the implementation of the paper ["Efficient Indexing of Billion-Scale datasets of deep descriptors"][1].  The implementation of `learn_GNOIMI.cpp` is based on the [original implementation][2] of the paper. Compared to the original implementation, current `learn_GNOIMI.cpp`  supports random thread number and random chunk size.
