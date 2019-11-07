@@ -14,9 +14,6 @@
 #include <set>
 
 
-#include <boost/algorithm/string.hpp>
-#include <boost/tokenizer.hpp>
-
 using namespace std;
 /* --------------------------------------------------------------------------*/
 /**
@@ -28,6 +25,21 @@ using namespace std;
  * @return		features in vector<T>  
  */
 /* ----------------------------------------------------------------------------*/
+void split(std::string& s, std::string delim,std::vector< std::string >* ret)
+{
+ size_t last = 0;
+ size_t index=s.find_first_of(delim,last);
+ while (index!=std::string::npos)
+ {
+  ret->push_back(s.substr(last,index-last));
+  last=index+1;
+  index=s.find_first_of(delim,last);
+ }
+ if (index-last>0)
+ {
+  ret->push_back(s.substr(last,index-last));
+ }
+}
 template<typename T>
 inline vector<T> load_feature(const string& f_name) {
 	ifstream in_f(f_name.c_str());
@@ -37,7 +49,6 @@ inline vector<T> load_feature(const string& f_name) {
 	while(in_f.good()) {
 		string cur_line;
 		getline(in_f, cur_line);
-		boost::algorithm::trim(cur_line);
 		if(in_f.eof()) break;
 
 		v_res.push_back(stof(cur_line));
@@ -55,11 +66,10 @@ inline void load_feature_ID_fromFiles(const string& f_list, vector<IDType>& v_ID
 	while(in_f.good()) {
 		string cur_line;
 		getline(in_f, cur_line);
-		boost::algorithm::trim(cur_line);
 		if(in_f.eof()) break;
 
 		vector<string> v_temp;
-		boost::split(v_temp, cur_line, boost::is_any_of(" "));
+		split(cur_line, " ", &v_temp);
 
 		vector<FType> v_cur_feature = load_feature<FType>(v_temp[0]);
 		vv_feature.push_back(v_cur_feature);
@@ -78,7 +88,6 @@ inline void load_ID_fromFile(const string& f_list, vector<int>& v_ID) {
     while(in_f.good()) {
 	string cur_line;
 	getline(in_f, cur_line);
-	boost::algorithm::trim(cur_line);
 	if(in_f.eof()) break;
 
 	v_ID.push_back(stoi(cur_line));

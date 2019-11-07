@@ -1,7 +1,8 @@
 #include <algorithm>
 #include <cstring>
-#include <mkl.h>
+#include <cblas.h>
 #include <assert.h>
+#include <functional>
 
 #include "kmean.h"
 

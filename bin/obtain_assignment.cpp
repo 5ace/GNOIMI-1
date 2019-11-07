@@ -14,7 +14,7 @@
 #include <map>
 
 #include <cblas.h>
-#include <boost/algorithm/string.hpp>
+#include <string.h>
 
 #include "file_utility.h"
 
@@ -24,7 +24,7 @@ extern "C"{
 
 #include <yael/kmeans.h>
 #include <yael/vector.h>
-#include <yael/matrix.c>
+#include <yael/matrix.h>
 
 int fvecs_read(const char *fname, int d, int n, float *v);
 void fmat_mul_full(const float *left, const float *right,
