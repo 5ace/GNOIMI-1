@@ -2,6 +2,8 @@
 #define NOVUGNO_IMI_INCLUDE_KMEAN_H_
 
 #include "common_type.h"
+#include <sstream>
+#include <iostream>
 
 #ifdef __cplusplus
 extern "C"{
@@ -16,7 +18,10 @@ float* fvec_new(long);
 int* ivec_new(long);
 double getmillisecs();
 float kmeans(int, int, int, int, const float*, int, long, int, float*, float*, int*, int*);
+long bvecs_fsize (const char * fname, int *d_out, int *n_out);
+int b2fvecs_new_read (const char *fname, int *d_out, float **v_out);
 void ivec_print(int const*, int);
+long b2fvecs_fread (FILE * f, float * v, long n);
 
 #ifdef __cplusplus
 }
@@ -71,4 +76,32 @@ t_K_mean_info kmean_yael_wrapper(const t_vv<float>& vv_features, const int& K);
 /* ----------------------------------------------------------------------------*/
 t_vv<float> cal_displacement(const t_vv<float>& vv_features, const t_v<int>& v_pt_assigned_centroid_idx, const t_vv<float>& vv_centroid);	
 
+template<typename T>
+void print_elements(const T* start, size_t n) {
+  std::stringstream ss;
+  ss << "[";
+  for(size_t i = 0; i < n; i++) {
+    ss << start[i] << (i==n-1 ? "":",");
+  }
+  ss<<"]";
+  std::cout << ss.str() <<std::endl;
+}
+
+inline int b2fvecs_new_read_limit (const char *fname, int *d_out, float **v_out,int limit)
+{
+  int n;
+  int d;
+  bvecs_fsize (fname, &d, &n);
+  if(n>limit)
+    n=limit;
+  float * v = fvec_new ((long) n * (long) d);
+  FILE * f = fopen (fname, "r");
+  assert (f || "bvecs_new_read: Unable to open the file");
+  b2fvecs_fread (f, v, n);
+  fclose (f);
+  
+  *v_out = v;
+  *d_out = d;
+  return n;
+}
 #endif 
